@@ -47,7 +47,7 @@ class NotificationThread(gevent.greenlet.Greenlet):
 
         while not self._complete.is_set():
             try:
-                print 'recived from server' + s.recv(1024)
+                print 'data: %s   from  %s  ' % s.recvfrom(1024)
             except :
                 self._complete.wait(timeout=1)
                 continue
