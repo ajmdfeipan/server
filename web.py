@@ -17,11 +17,7 @@ from flask import Flask
 
 class WebThread(gevent.greenlet.Greenlet):
     """
-    Responsible for:
-     - Listening for Websockets clients connecting, and subscribing them
-       to the ceph: topics
-     - Publishing messages to Websockets topics on behalf of other
-       python code.
+    web
     """
     def __init__(self, manager):
         super(WebThread, self).__init__()
@@ -43,8 +39,7 @@ class WebThread(gevent.greenlet.Greenlet):
         app = Flask(__name__)
         @app.route('/')
         def hello_world():
-            return 'Hello World!'
-
+            return str(self._manager.vms)
         while not self._complete.is_set():
             try:
                 WSGIServer(('', 5000), app).serve_forever()
